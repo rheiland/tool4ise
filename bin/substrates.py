@@ -184,9 +184,13 @@ class SubstrateTab(object):
         try:
             fname = os.path.join(self.output_dir, "initial.xml")
             tree = ET.parse(fname)
-#            return
+            xml_root = tree.getroot()
+            xcoord_vals = xml_root.find(".//x_coordinates").text.split()
+            ycoord_vals = xml_root.find(".//y_coordinates").text.split()
+            self.numx = len(xcoord_vals)
+            self.numy = len(ycoord_vals)
         except:
-            print("Cannot open ",fname," to get names of substrate fields.")
+            print("Cannot open ",fname," to read info, e.g., names of substrate fields.")
             return
 
         xml_root = tree.getroot()
@@ -341,18 +345,15 @@ class SubstrateTab(object):
         #     im = ax.imshow(f.reshape(100,100), interpolation='nearest', cmap=cmap, extent=[0,20, 0,20])
         #     ax.grid(False)
 
-        N = int(math.sqrt(len(M[0,:])))
-        grid2D = M[0, :].reshape(N,N)
-        xvec = grid2D[0, :]
+        xgrid = M[0, :].reshape(self.numy, self.numx)
+        ygrid = M[1, :].reshape(self.numy, self.numx)
 
         num_contours = 15
-#        levels = MaxNLocator(nbins=10).tick_values(vmin, vmax)
         levels = MaxNLocator(nbins=num_contours).tick_values(self.cmap_min.value, self.cmap_max.value)
         if (self.cmap_fixed.value):
-            my_plot = plt.contourf(xvec, xvec, M[self.field_index, :].reshape(N,N), levels=levels, extend='both', cmap=self.field_cmap.value)
+            my_plot = plt.contourf(xgrid, ygrid, M[self.field_index, :].reshape(self.numy, self.numx), levels=levels, extend='both', cmap=self.field_cmap.value)
         else:    
-#        my_plot = plt.contourf(xvec, xvec, M[self.field_index, :].reshape(N,N), num_contours, cmap=self.field_cmap.value)
-            my_plot = plt.contourf(xvec, xvec, M[self.field_index, :].reshape(N,N), num_contours, cmap=self.field_cmap.value)
+            my_plot = plt.contourf(xgrid, ygrid, M[self.field_index, :].reshape(self.numy,self.numx), num_contours, cmap=self.field_cmap.value)
 
         plt.title(title_str)
         plt.colorbar(my_plot)
