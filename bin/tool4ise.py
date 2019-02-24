@@ -3,6 +3,7 @@ import xml.etree.ElementTree as ET  # https://docs.python.org/2/library/xml.etre
 import os
 import glob
 import shutil
+import math
 import datetime
 import tempfile
 from config import ConfigTab
@@ -93,6 +94,11 @@ def write_config_file(name):
     config_tab.fill_xml(xml_root)
     user_tab.fill_xml(xml_root)
     tree.write(name)
+
+    # update substrate mesh layout (beware of https://docs.python.org/3/library/functions.html#round)
+    sub.numx =  math.ceil( (config_tab.xmax.value - config_tab.xmin.value) / config_tab.xdelta.value )
+    sub.numy =  math.ceil( (config_tab.ymax.value - config_tab.ymin.value) / config_tab.ydelta.value )
+    # print("------- sub.numx, sub.numy = ", sub.numx, sub.numy )
 
 
 # callback from write_config_button
