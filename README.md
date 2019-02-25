@@ -1,8 +1,10 @@
 # tool4ise
-Auto-create a Jupyter tool for PhysiCell-related models and output. The directory structure of this repository is intended to match that required for a [nanoHUB](https://nanohub.org/) tool installation. However, creating an actual nanoHUB tool is optional; the GUI created here should also work (with fewer bells & whistles, perhaps) on your personal computer, assuming you have the required Python modules and Jupyter notebooks installed.
+Auto-create a Jupyter tool for PhysiCell-related models and output. The directory structure of this repository is intended to match that required for a [nanoHUB](https://nanohub.org/) tool installation. However, creating an actual nanoHUB tool is optional; the GUI created here should also work (with fewer bells & whistles, perhaps) on your personal computer, assuming you have the required Python modules and are able to run a Jupyter notebook server.
 
 
 ## Dependencies
+* We highly recommend installing the Anaconda Python 3.x distribution. This will contain Python and various 3rd party modules needed to run the PhysiCell Jupyter GUI. It will also contain the Jupyter notebook server.
+* If you are not on Windows, it's possible to install a Python module (hublib) that will provide customized widgets for the GUI. (The make_my_tool.py script will attempt to install this)
 
 ## Steps to follow
 ```
