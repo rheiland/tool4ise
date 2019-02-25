@@ -7,6 +7,7 @@ Auto-create a Jupyter tool for PhysiCell-related models and output. The director
 * If you are not on Windows, it's possible to install a Python module (hublib) that will provide customized widgets for the GUI. (The make_my_tool.py script will attempt to install this)
 
 ## Steps to follow
+<!--
 ```
 Copy the relevant files from your PhysiCell model into this repo, specifically:
 Your .xml config file into data/PhysiCell_settings.xml (overwrite the one there)
@@ -32,6 +33,38 @@ $ jupyter notebook <toolname>.ipynb
 Select ‘Cell’ → ‘Run All’ menu item to display the notebook.
 Click ‘Run’ button to see if it works. Output files should appear in the /tmpdir directory.
 ```
+-->
+
+Copy the relevant files from your PhysiCell model into this repo, specifically:
+* copy your .xml config file into data/PhysiCell_settings.xml (overwrite the one there)
+* Edit data/PhysiCell_settings.xml so that:
+<folder>.</folder>
+* copy your main.cpp into /src
+* copy your /custom_modules/*{.h,.cpp} into /src/custom_modules/*
+* copy your Makefile into src/Makefile and edit it there so that:
+```
+PROGRAM_NAME := myproj
+```
+Build using the Makefile - it will build a ‘myproj’ executable. 
+* copy ‘myproj’ to /bin in your repo.
+
+From the root dir of your repo:
+* run “python make_my_tool.py <your tool name>”, 
+e.g., “python make_my_tool.py iu399sp19p001”
+  
+This script will do a number of things: 
+* replace the name of the tool in various places to be your tool’s name, e.g., in the /middleware/invoke bash script, and the names of the notebook (.ipynb) and the primary Python module (both in /bin).
+* run the xml2jupyter.py script on data/PhysiCell_settings.xml and copy the resulting user_params.py into the /bin directory.
+* attempt to install the “hublib” Python module that provides the fancy “Run” button widget (with Output and Cancel features).
+
+Copy the “initial.xml”, from the output you generated when you ran your project in another directory, into the /data directory of your repo.
+
+Test your notebook locally. From the root directory:
+```
+$ jupyter notebook <toolname>.ipynb
+```
+Select ‘Cell’ → ‘Run All’ menu item to display the notebook.
+Click ‘Run’ button to see if it works. Output files should appear in the /tmpdir directory.
 
 If everything appears to be correct and you want to test and possibly publish your tool on nanoHUB:
 
