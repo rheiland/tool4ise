@@ -128,6 +128,9 @@ mygui.py	xml2jupyter.py
 
 # edit this PhysiCell_settings.xml so that: <folder>.</folder>
 
+~/git/ise_proj1/data$ cp ~/dev/PhysiCell_heterogeneity/output/initial.xml . 
+
+~/git/ise_proj1/src$ cd ..
 ~/git/ise_proj1$ python make_my_tool.py 
 num_args= 1
 Usage: %s <your repo name>
@@ -170,7 +173,7 @@ Finally, try to run the notebook to display the GUI:
 If your notebook tells you a file is not found, but it's really there, e.g.:
 FileNotFoundError: [Errno 2] No such file or directory: '/Users/heiland/git/ise_proj1/data/PhysiCell_settings.xml'
 
-try: Kernel --> Restart & Run All
+try the menu: Kernel --> Restart & Run All
 ```
 
 If it seems to run OK, commit your code:
