@@ -70,7 +70,7 @@ If you happened to create your repo to be the same name as your nanoHUB tool, th
 ```
 
 * From the status page of your new tool on nanoHUB (e.g., https://nanohub.org/tools/iu399sp19p099/status), click the link to have it installed for testing (below the "We are waiting for You"). (You must be logged in to nanoHUB). Wait 1-3 days for that to happen. You will receive an email from nanoHUB when the tool is installed.
-* After your tool in installed and you have tested it and feel like it’s ready to publish, click the link on your tool’s status page that you approve it (for publishing). You will (I think) then be asked to provide the license for your tool and check a box to verify the license is indeed correct. You will receive an email from nanoHUB when the tool is published.
+* After your tool in installed and you have tested it and feel like it’s ready to publish, click the link on your tool’s status page that you approve it (for publishing). You will (I think) then be asked to provide the license for your tool and check a box to verify the license is indeed correct. You will receive an automated email from nanoHUB saying the tool status changed from "Created to Uploaded". The nanoHUB sys admin will then need to compile your code and deploy it there. You will receive another email when the tool is ready to test on nanoHUB.
 
 
 ## Example Steps (on Unix-like shell)
