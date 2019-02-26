@@ -29,10 +29,12 @@ gui_name = sys.argv[1]
 print('gui_name=',gui_name)
 
 
-with open('middleware/invoke', 'r') as myfile:
-    new_text = myfile.read().replace('tool4ise', gui_name)
-with open('middleware/invoke', 'w') as myfile:
-    myfile.write(new_text)
+# NOTE: let's not do this now; rather edit the invoke script *on* github to avoid 
+#       the (Windows) problem of making it a non-executable file
+#with open('middleware/invoke', 'r') as myfile:
+#    new_text = myfile.read().replace('tool4ise', gui_name)
+#with open('middleware/invoke', 'w') as myfile:
+#    myfile.write(new_text)
 
 #--------------
 old_file = os.path.join("bin", 'tool4ise.py')
