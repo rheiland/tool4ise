@@ -173,6 +173,14 @@ FileNotFoundError: [Errno 2] No such file or directory: '/Users/heiland/git/ise_
 try: Kernel --> Restart & Run All
 ```
 
+If it seems to run OK, commit your code:
+```
+~/git/ise_proj1$ git add .
+~/git/ise_proj1$ git commit -m "initial commit"
+...
+~/git/ise_proj1$ git push
+```
+
 <!--
 In the `data` directory, you will run the `xml2jupyter.py` script on the .xml file to 
 generate `user_params.py`.
