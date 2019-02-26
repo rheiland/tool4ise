@@ -46,8 +46,8 @@ Test your notebook locally. From the root directory:
 ```
 $ jupyter notebook <your-repo>.ipynb
 ```
-Select ‘Cell’ → ‘Run All’ menu item to display the notebook.
-Click ‘Run’ button to see if it works. Output files should appear in the /tmpdir directory.
+Select ‘Cell’ → ‘Run All’ menu item to display the notebook (or, if necessary, select the 'Kernel' → ‘Restart & Run All’ menu item).
+Click the ‘Run’ button in the GUI to see if it works. Output files should appear in the /tmpdir directory.
 
 If everything appears to be correct and you want to test and possibly publish your tool on nanoHUB:
 
