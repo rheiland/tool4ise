@@ -1,5 +1,5 @@
 # tool4ise
-Auto-create a Jupyter tool for PhysiCell-related models and output. The directory structure of this repository is intended to match that required for a [nanoHUB](https://nanohub.org/) tool installation. However, creating an actual nanoHUB tool is optional; the GUI created here should also work (with fewer bells & whistles, perhaps) on your personal computer, assuming you have the required Python modules and are able to run a Jupyter notebook server.
+This repository helps auto-generate a Jupyter notebook GUI for PhysiCell-related models and output. The directory structure and content of the repository matches a template required for a [nanoHUB](https://nanohub.org/) tool installation. However, creating an actual nanoHUB tool is optional; the GUI created here should also work (with fewer bells & whistles, perhaps) on your personal computer, assuming you have the required Python modules and are able to run a Jupyter notebook server.
 
 
 ## Dependencies
@@ -7,65 +7,44 @@ Auto-create a Jupyter tool for PhysiCell-related models and output. The director
 * If you are not on Windows, it's possible to install a Python module (hublib) that will provide customized widgets for the GUI. (The make_my_tool.py script will attempt to install this)
 
 ## Steps to follow
-<!--
-```
-Copy the relevant files from your PhysiCell model into this repo, specifically:
-Your .xml config file into data/PhysiCell_settings.xml (overwrite the one there)
-Edit data/PhysiCell_settings.xml so that:
-<folder>.</folder>
-Your main.cpp into /src
-Your /custom_modules/*{.h,.cpp} into /src/custom_modules/*
-Your Makefile into src/Makefile, however, you need to edit it there so that:
-PROGRAM_NAME := myproj
-Build using the Makefile - it will build a ‘myproj’ executable. Copy ‘myproj’ to /bin in your repo.
 
-From the root dir of your repo, run ```python make_my_tool.py <your tool name>``` 
-e.g., “python make_my_tool.py iu399sp19p001”
-This script will do a number of things:
-Replace the name of the tool in various places to be your tool’s name, e.g., in the /middleware/invoke bash script, and the names of the notebook (.ipynb) and the primary Python module (both in /bin).
-Run the xml2jupyter.py script on data/PhysiCell_settings.xml and copy the resulting user_params.py into the /bin directory.
-```
-python xml2jupyter.py PhysiCell_settings.xml
-cp user_params.py ../bin
-```
-Attempt to install the “hublib” Python module that provides the fancy “Run” button widget (with Output and Cancel features).
+* Create a new, public repository on github.com (not the IU github) and clone it to your computer. Call it whatever you want (it doesn't have to match the name of your eventual nanoHUB tool). Don't bother to create a default README.md as it would be overwritten below. For the example steps below, we choose the name "ise_proj1".
+* Clone this tool4ise repo to your computer. (If you made a default README.md and want to save it, make a copy).
+* Copy the contents of the tool4ise repo to your newly created repo (but NOT the hidden ```.git``` directory!)
 
-Copy the “initial.xml”, from the output you generated when you ran your project in another directory, into the /data directory of your repo.
-Test your notebook locally. From the root directory:
-```$ jupyter notebook <toolname>.ipynb```
+Copy the relevant files from your PhysiCell model into the relevant subdirectories of this repo. Essentially, you need to copy all of your code (and directory structure) so that when you type ```make``` here in your new repo, it will build your project. For example, one would typically do the following (and there's a Python script in /src which should perform these copies - see Example Steps below):
 
-Select ‘Cell’ → ‘Run All’ menu item to display the notebook.
-Click ‘Run’ button to see if it works. Output files should appear in the /tmpdir directory.
-```
--->
-
-Copy the relevant files from your PhysiCell model into this repo, specifically:
-* copy your .xml config file into data/PhysiCell_settings.xml (overwrite the one there)
-* edit data/PhysiCell_settings.xml so that:
-```<folder>.</folder>```
+* copy all /core/ files into the /src/core/ directory
+* copy all /BioFVM/ files into the /src/BioFVM/ directory
+* copy all /modules/ files into the /src/modules/ directory
+* copy all /custom_modules/ files into the /src/custom_modules/ directory
 * copy your main.cpp into /src
-* copy your /custom_modules/*{.h,.cpp} into /src/custom_modules/*
-* copy your Makefile into src/Makefile and edit it there so that:
+* copy your Makefile into src/Makefile and 
+* edit your newly copied Makefile so that:
 ```
 PROGRAM_NAME := myproj
 ```
 Build using the Makefile - it will build a ‘myproj’ executable. 
 * copy ‘myproj’ to /bin in your repo.
 
+* copy your .xml configuration file into data/PhysiCell_settings.xml (overwrite the one there)
+* edit data/PhysiCell_settings.xml so that:
+```<folder>.</folder>```
+
 From the root dir of your repo:
-* run “python make_my_tool.py <your tool name>”, 
-e.g., “python make_my_tool.py iu399sp19p001”
+* run “python make_my_tool.py <your repo name>”, 
+e.g., “python make_my_tool.py ise_proj1"    <!-- iu399sp19p001” -->
   
 This script will do a number of things: 
-* replace the name of the tool in various places to be your tool’s name, e.g., in the /middleware/invoke bash script, and the names of the notebook (.ipynb) and the primary Python module (both in /bin).
+* rename two files: <!-- in the /middleware/invoke bash script, and --> the name of the notebook (```.ipynb```, in the root directory) and the primary Python module (in /bin).
 * run the xml2jupyter.py script on data/PhysiCell_settings.xml and copy the resulting user_params.py into the /bin directory.
 * attempt to install the “hublib” Python module that provides the fancy “Run” button widget (with Output and Cancel features).
 
-Copy the “initial.xml”, from the output you generated when you ran your project in another directory, into the /data directory of your repo.
+Copy the “initial.xml”, from the output you generated when you ran your project in its original location, into this repo's /data directory.
 
 Test your notebook locally. From the root directory:
 ```
-$ jupyter notebook <toolname>.ipynb
+$ jupyter notebook <your-repo>.ipynb
 ```
 Select ‘Cell’ → ‘Run All’ menu item to display the notebook.
 Click ‘Run’ button to see if it works. Output files should appear in the /tmpdir directory.
@@ -78,13 +57,49 @@ If everything appears to be correct and you want to test and possibly publish yo
 * After your tool in installed and you have tested it and feel like it’s ready to publish, click the link on your tool’s status page that you approve it (for publishing). You will (I think) then be asked to provide the license for your tool and check a box to verify the license is indeed correct. You will receive an email from nanoHUB when the tool is published.
 
 
-<!--
-You will need to provide the following files in the `data` subdirectory:
+## Example Steps
+
+Here is an example walk-through using commands in a (Unix-like) shell
 ```
-PhysiCell_settings.xml 
-initial.xml 
+~/git$ git clone git@github.com:rheiland/ise_proj1.git
+Cloning into 'ise_proj1'...
+warning: You appear to have cloned an empty repository.
+~/git$ cd ise_proj1/
+
+~/git/ise_proj1$ cp -R ~/git/tool4ise/* .
+
+~/git/ise_proj1$ ls
+LICENSE.txt		doc/			rappture/
+README.md		examples/		src/
+bin/			make_my_tool.py		tmpdir/
+data/			middleware/		tool4ise.ipynb
+
+~/git/ise_proj1$ cd src
+~/git/ise_proj1/src$ ls
+copy_myproj.py
+~/git/ise_proj1/src$ python copy_myproj.py 
+num_args= 1
+Usage: %s </full/path/to/PhysiCell-proj>
+
+~/git/ise_proj1/src$ python copy_myproj.py ~/dev/PhysiCell-biorobots
+num_args= 2
+path_to_proj= /Users/heiland/dev/PhysiCell-biorobots
+/Users/heiland/dev/PhysiCell-biorobots/core  -->  ./core
+/Users/heiland/dev/PhysiCell-biorobots/BioFVM  -->  ./BioFVM
+/Users/heiland/dev/PhysiCell-biorobots/modules  -->  ./modules
+/Users/heiland/dev/PhysiCell-biorobots/custom_modules  -->  ./custom_modules
+/Users/heiland/dev/PhysiCell-biorobots/Makefile  -->  ./Makefile
+~/git/ise_proj1/src$ 
+~/git/ise_proj1/src$ ls
+BioFVM/		copy_myproj.py	custom_modules/
+Makefile	core/		modules/
+
+~/git/ise_proj1/src$ 
+ 
+
+
 ```
--->
+
 
 <!--
 In the `data` directory, you will run the `xml2jupyter.py` script on the .xml file to 
