@@ -22,44 +22,45 @@ import platform
 num_args = len(sys.argv)
 print('num_args=',num_args)
 if (num_args < 2):
-    print("Usage: %s <new tool name>")
+#    print("Usage: %s <new tool name>")
+    print("Usage: %s <your repo name>")
     sys.exit(1)
-toolname = sys.argv[1]
-print('toolname=',toolname)
+gui_name = sys.argv[1]
+print('gui_name=',gui_name)
 
 
 with open('middleware/invoke', 'r') as myfile:
-    new_text = myfile.read().replace('tool4ise', toolname)
+    new_text = myfile.read().replace('tool4ise', gui_name)
 with open('middleware/invoke', 'w') as myfile:
     myfile.write(new_text)
 
 #--------------
 old_file = os.path.join("bin", 'tool4ise.py')
-new_file = os.path.join("bin", toolname + '.py')
+new_file = os.path.join("bin", gui_name + '.py')
 try:
     shutil.move(old_file, new_file)
     print('Renaming ',old_file, ' to ',new_file)
 except:
     print("  ---> Cannot rename ",old_file," to ",new_file, ", but we will continue")
 
-print('Replacing toolname in ',new_file)
+print('Replacing gui_name in ',new_file)
 with open(new_file, 'r') as myfile:
-    new_text = myfile.read().replace('tool4ise', toolname)
+    new_text = myfile.read().replace('tool4ise', gui_name)
 with open(new_file, 'w') as myfile:
     myfile.write(new_text)
 
 #--------------
 old_file = 'tool4ise.ipynb'
-new_file = toolname + '.ipynb'
+new_file = gui_name + '.ipynb'
 try:
     shutil.move(old_file, new_file)
     print('Renaming ',old_file, ' to ',new_file)
 except:
     print("  ---> Cannot rename ",old_file," to ",new_file, ", but we will continue")
 
-print('Replacing toolname in ',new_file)
+print('Replacing gui_name in ',new_file)
 with open(new_file, 'r') as myfile:
-    new_text = myfile.read().replace('tool4ise', toolname)
+    new_text = myfile.read().replace('tool4ise', gui_name)
 with open(new_file, 'w') as myfile:
     myfile.write(new_text)
 
