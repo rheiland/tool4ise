@@ -112,6 +112,8 @@ Makefile	core/		main.cpp
 
 ~/git/ise_proj1/src$ make
  ... (will hopefully build and generate myproj)
+ 
+ ~/git/ise_proj1/src$ cp myproj ../bin
 
 ~/git/ise_proj1/src$ cd ../data
 ~/git/ise_proj1/data$ ls
