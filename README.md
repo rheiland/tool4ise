@@ -12,7 +12,7 @@ This repository helps auto-generate a Jupyter notebook GUI for PhysiCell-related
 * Clone this tool4ise repo to your computer. (If you made a default README.md and want to save it, make a copy).
 * Copy the contents of the tool4ise repo to your newly created repo (but NOT the hidden ```.git``` directory!)
 
-Copy the relevant files from your PhysiCell model into the relevant subdirectories of this repo. Essentially, you need to copy all of your code (and directory structure) so that when you type ```make``` here in your new repo, it will build your project. For example, one would typically do the following (and there's a Python script in /src which should perform these copies - see Example Steps below):
+Copy the relevant files from your PhysiCell model into the relevant subdirectories of this repo. Essentially, you need to copy all of your code (and directory structure) so that when you type ```make``` here in your new repo, it will build your project. For example, one would typically do the following (there's a Python script in /src called ```copy_myproj.py``` that should perform these copies - see Example Steps below):
 
 * copy all /core/ files into the /src/core/ directory
 * copy all /BioFVM/ files into the /src/BioFVM/ directory
@@ -24,7 +24,7 @@ Copy the relevant files from your PhysiCell model into the relevant subdirectori
 ```
 PROGRAM_NAME := myproj
 ```
-Build using the Makefile - it will build a ‘myproj’ executable. 
+Build using the Makefile (run ```make```) - it should build a ‘myproj’ executable. 
 * copy ‘myproj’ to /bin in your repo.
 
 * copy your .xml configuration file into data/PhysiCell_settings.xml (overwrite the one there)
@@ -56,8 +56,18 @@ If everything appears to be correct and you want to test and possibly publish yo
 * From the status page of your new tool on nanoHUB, click the link to have it installed for testing. (You must be logged in to nanoHUB). Wait 1-3 days for that to happen. You will receive an email from nanoHUB when the tool is installed.
 * After your tool in installed and you have tested it and feel like it’s ready to publish, click the link on your tool’s status page that you approve it (for publishing). You will (I think) then be asked to provide the license for your tool and check a box to verify the license is indeed correct. You will receive an email from nanoHUB when the tool is published.
 
+## Follow-on Steps (for a nanoHUB tool)
 
-## Example Steps
+* in a browser, go to your newly created repository and edit the ```middleware/invoke``` script *in-place*. You want the name of the .ipynb to be your newly created notebook (=repo) name and the name following the ```-t``` to be the name of your nanoHUB tool. For example:
+```
+/usr/bin/invoke_app "$@" -C "start_jupyter -A -T @tool ise_proj1.ipynb" -t iu399sp19p042 \
+```
+If you happened to create your repo to be the same name as your nanoHUB tool, then it would be:
+```
+/usr/bin/invoke_app "$@" -C "start_jupyter -A -T @tool iu399sp19p001.ipynb" -t iu399sp19p042 \
+```
+
+## Example Steps (on Unix-like shell)
 
 Here is an example walk-through using commands in a (Unix-like) shell
 ```
@@ -81,25 +91,79 @@ copy_myproj.py
 num_args= 1
 Usage: %s </full/path/to/PhysiCell-proj>
 
-~/git/ise_proj1/src$ python copy_myproj.py ~/dev/PhysiCell-biorobots
+~/git/ise_proj1/src$ python copy_myproj.py ~/dev/PhysiCell_heterogeneity
 num_args= 2
-path_to_proj= /Users/heiland/dev/PhysiCell-biorobots
-/Users/heiland/dev/PhysiCell-biorobots/core  -->  ./core
-/Users/heiland/dev/PhysiCell-biorobots/BioFVM  -->  ./BioFVM
-/Users/heiland/dev/PhysiCell-biorobots/modules  -->  ./modules
-/Users/heiland/dev/PhysiCell-biorobots/custom_modules  -->  ./custom_modules
-/Users/heiland/dev/PhysiCell-biorobots/Makefile  -->  ./Makefile
+path_to_proj= /Users/heiland/dev/PhysiCell_heterogeneity
+/Users/heiland/dev/PhysiCell_heterogeneity/core  -->  ./core
+/Users/heiland/dev/PhysiCell_heterogeneity/BioFVM  -->  ./BioFVM
+/Users/heiland/dev/PhysiCell_heterogeneity/modules  -->  ./modules
+/Users/heiland/dev/PhysiCell_heterogeneity/custom_modules  -->  ./custom_modules
+/Users/heiland/dev/PhysiCell_heterogeneity/Makefile  -->  ./Makefile
+/Users/heiland/dev/PhysiCell_heterogeneity/main.cpp  -->  ./main.cpp
+/Users/heiland/dev/PhysiCell_heterogeneity/VERSION.txt  -->  ./VERSION.txt
+
+
+# edit the Makefile:  PROGRAM_NAME := myproj
+
 ~/git/ise_proj1/src$ 
 ~/git/ise_proj1/src$ ls
-BioFVM/		copy_myproj.py	custom_modules/
-Makefile	core/		modules/
+BioFVM/		copy_myproj.py	custom_modules/	modules/
+Makefile	core/		main.cpp
 
-~/git/ise_proj1/src$ 
+~/git/ise_proj1/src$ make
+ ... (will hopefully build and generate myproj)
+
+~/git/ise_proj1/src$ cd ../data
+~/git/ise_proj1/data$ ls
+mygui.py	xml2jupyter.py
+~/git/ise_proj1/data$ cp ~/dev/PhysiCell_heterogeneity/config/PhysiCell_settings.xml .
+
+# edit this PhysiCell_settings.xml so that: <folder>.</folder>
+
+~/git/ise_proj1$ python make_my_tool.py 
+num_args= 1
+Usage: %s <your repo name>
  
+~/git/ise_proj1$ python make_my_tool.py ise_proj1
+num_args= 2
+toolname= ise_proj1
+Renaming  bin/tool4ise.py  to  bin/ise_proj1.py
+Replacing toolname in  bin/ise_proj1.py
+Renaming  tool4ise.ipynb  to  ise_proj1.ipynb
+Replacing toolname in  ise_proj1.ipynb
+Trying to run xml2jupyter.py on your .xml file in /data
+num_args= 2
+tumor_radius {'type': 'double', 'units': 'micron'}
+double:  250.0 , delta_val= 10
+oncoprotein_mean {'type': 'double', 'units': 'dimensionless'}
+double:  1.0 , delta_val= 0.1
+oncoprotein_sd {'type': 'double', 'units': 'dimensionless'}
+double:  0.25 , delta_val= 0.01
+oncoprotein_min {'type': 'double', 'units': 'dimensionless'}
+double:  0.0 , delta_val= 0.01
+oncoprotein_max {'type': 'double', 'units': 'dimensionless'}
+double:  2.0 , delta_val= 0.1
+random_seed {'type': 'int', 'units': 'dimensionless'}
+int:  0 , delta_val= 1
 
+ --------------------------------- 
+Generated a new:  user_params.py
 
+Trying to import hublib.ui
+<IPython.core.display.Javascript object>
 ```
 
+Finally, try to run the notebook to display the GUI:
+```
+~/git/ise_proj1$ jupyter notebook ise_proj1.ipynb 
+...
+
+
+If your notebook tells you a file is not found, but it's really there, e.g.:
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/heiland/git/ise_proj1/data/PhysiCell_settings.xml'
+
+try: Kernel --> Restart & Run All
+```
 
 <!--
 In the `data` directory, you will run the `xml2jupyter.py` script on the .xml file to 
