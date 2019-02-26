@@ -57,7 +57,8 @@ If everything appears to be correct and you want to test and possibly publish yo
 
 ## Follow-on Steps (for a nanoHUB tool)
 
-* https://nanohub.org/tools/create - fill out the basic information for creating your nanoHUB tool. Tool Name should be 3-15 alphanumeric characters, including at least one non numeric character (e.g., ```iu399sp19p042```). Although not required, it’s probably wise to also use only lowercase characters. You’ll also be warned if a tool name has already been taken, however, it may take a few seconds for that to appear. Select the bullet to: Publish as a Jupyter notebook.
+* If you do not have a nanoHUB account, register for one at https://nanohub.org/register/
+* On https://nanohub.org/tools/create, fill out the basic information for creating your nanoHUB tool. Tool Name should be 3-15 alphanumeric characters, including at least one non numeric character (e.g., ```iu399sp19p042```). Although not required, it’s probably wise to also use only lowercase characters. You’ll also be warned if a tool name has already been taken, however, it may take a few seconds for that to appear. Select the bullet to: Publish as a Jupyter notebook.
 
 * in a browser, go to your newly created repository and edit the ```middleware/invoke``` script *in-place*. You want the name of the .ipynb to be your newly created notebook (=repo) name and the name following the ```-t``` to be the name of your nanoHUB tool. For example:
 ```
