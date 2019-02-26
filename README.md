@@ -53,10 +53,11 @@ If everything appears to be correct and you want to test and possibly publish yo
 
 * Delete tool4ise.zip in your repo. Optionally, clean up (delete) /src/*.o
 * Commit files to your GitHub repo.
-* From the status page of your new tool on nanoHUB, click the link to have it installed for testing. (You must be logged in to nanoHUB). Wait 1-3 days for that to happen. You will receive an email from nanoHUB when the tool is installed.
-* After your tool in installed and you have tested it and feel like it’s ready to publish, click the link on your tool’s status page that you approve it (for publishing). You will (I think) then be asked to provide the license for your tool and check a box to verify the license is indeed correct. You will receive an email from nanoHUB when the tool is published.
+
 
 ## Follow-on Steps (for a nanoHUB tool)
+
+* https://nanohub.org/tools/create - fill out the basic information for creating your nanoHUB tool. Tool Name should be 3-15 alphanumeric characters, including at least one non numeric character (e.g., ```iu399sp19p042```). Although not required, it’s probably wise to also use only lowercase characters. You’ll also be warned if a tool name has already been taken, however, it may take a few seconds for that to appear. Select the bullet to: Publish as a Jupyter notebook.
 
 * in a browser, go to your newly created repository and edit the ```middleware/invoke``` script *in-place*. You want the name of the .ipynb to be your newly created notebook (=repo) name and the name following the ```-t``` to be the name of your nanoHUB tool. For example:
 ```
@@ -66,6 +67,10 @@ If you happened to create your repo to be the same name as your nanoHUB tool, th
 ```
 /usr/bin/invoke_app "$@" -C "start_jupyter -A -T @tool iu399sp19p001.ipynb" -t iu399sp19p042 \
 ```
+
+* From the status page of your new tool on nanoHUB, click the link to have it installed for testing. (You must be logged in to nanoHUB). Wait 1-3 days for that to happen. You will receive an email from nanoHUB when the tool is installed.
+* After your tool in installed and you have tested it and feel like it’s ready to publish, click the link on your tool’s status page that you approve it (for publishing). You will (I think) then be asked to provide the license for your tool and check a box to verify the license is indeed correct. You will receive an email from nanoHUB when the tool is published.
+
 
 ## Example Steps (on Unix-like shell)
 
