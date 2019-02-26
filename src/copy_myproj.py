@@ -29,3 +29,8 @@ to_file = os.path.join(".", "Makefile")
 print(from_file, " --> ", to_file)
 shutil.copy(from_file, to_file)
 
+from_file = os.path.join(path_to_proj, "main.cpp")
+to_file = os.path.join(".", "main.cpp")
+print(from_file, " --> ", to_file)
+shutil.copy(from_file, to_file)
+
