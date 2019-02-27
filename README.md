@@ -24,6 +24,21 @@ Copy the relevant files from your PhysiCell model into the relevant subdirectori
 ```
 PROGRAM_NAME := myproj
 ```
+also, be sure it has the following targets present (with the necessary leading tabs):
+```
+install: all
+        cp $(PROGRAM_NAME) ../bin
+
+distclean: clean
+        rm -f ../bin/$(PROGRAM_NAME)
+```
+and this target should not have the trailing "*":
+```
+clean:
+        rm -f *.o
+#       rm -f $(PROGRAM_NAME)*
+        rm -f $(PROGRAM_NAME)
+```
 Build using the Makefile (run ```make```) - it should build a ‘myproj’ executable. 
 * copy ‘myproj’ to /bin in your repo.
 
