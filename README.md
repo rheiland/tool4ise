@@ -8,19 +8,33 @@ This repository helps auto-generate a Jupyter notebook GUI for PhysiCell-related
 
 ## Steps to follow
 
-* Create a new, public repository on github.com (not the IU github) and clone it to your computer. Call it whatever you want (it doesn't have to match the name of your eventual nanoHUB tool). Don't bother to create a default README.md as it would be overwritten below. For the example steps below, we choose the name "ise_proj1".
-* Clone this tool4ise repo to your computer. (If you made a default README.md and want to save it, make a copy).
+* Create a new, public repository on github.com (not the IU github) and clone it to your computer. Call it whatever you want (it doesn't have to match the name of your eventual nanoHUB tool). Don't bother to create a default README.md as it would be overwritten below. But if you do create a README.md for it, you may want to make a backup copy in case it gets overwritten in the steps below. For the example steps below, we choose the name "ise_proj1".
+* Clone this tool4ise repo to your computer.
+* Try to run the Python script called ```setup_new_proj.py``` from your tool4ise directory. If successful, this will do most of the following steps for you. You provide 3 arguments to the script:
+```
+<full-path-to-new-project>  <simple-project-name>  <full-path-to-PhysiCell-project>
+```
+So, an example might be (from a Unix-like shell):
+```
+~/git/tool4ise$ python setup_new_proj.py /Users/heiland/git/ise_proj1 ise_proj1 /Users/heiland/dev/PhysiCell_heterogeneity
+```
+
+## Details of the ```setup_new_proj.py```
+
+In more detail, the ```setup_new_proj.py``` script should:
+
 * Copy the contents of the tool4ise repo to your newly created repo (but NOT the hidden ```.git``` directory!)
 
-Copy the relevant files from your PhysiCell model into the relevant subdirectories of this repo. Essentially, you need to copy all of your code (and directory structure) so that when you type ```make``` here in your new repo, it will build your project. For example, one would typically do the following (there's a Python script in /src called ```copy_myproj.py``` that should perform these copies - see Example Steps below):
+* Copy the relevant files from your PhysiCell model into the new repo's /src directory. Basically, you need to get all of your PhysiCell code (and directory structure) into /src so that when you type ```make``` there, it will build your project. For example, one would typically do: <!-- the following (there's a Python script in /src called ```copy_myproj.py``` that should perform these copies - see Example Steps below): -->
 
-* copy all /core/ files into the /src/core/ directory
-* copy all /BioFVM/ files into the /src/BioFVM/ directory
-* copy all /modules/ files into the /src/modules/ directory
-* copy all /custom_modules/ files into the /src/custom_modules/ directory
-* copy your main.cpp into /src
-* copy your Makefile into src/Makefile and 
-* edit your newly copied Makefile so that:
+        * copy all /core/ files into the /src/core/ directory   
+        * copy all /BioFVM/ files into the /src/BioFVM/ directory
+        * copy all /modules/ files into the /src/modules/ directory
+        * copy all /custom_modules/ files into the /src/custom_modules/ directory
+        * copy your main.cpp into /src
+        * copy your Makefile into src/Makefile and 
+     
+The src/Makefile needs to be edited so that:
 ```
 PROGRAM_NAME := myproj
 ```
@@ -57,7 +71,9 @@ This script will do a number of things:
 
 Copy the “initial.xml”, from the output you generated when you ran your project in its original location, into this repo's /data directory.
 
-Test your notebook locally. From the root directory:
+## Testing your notebook locally
+
+From the root directory of your new project (your cloned repo), run:
 ```
 $ jupyter notebook <your-repo>.ipynb
 ```
@@ -88,7 +104,7 @@ If you happened to create your repo to be the same name as your nanoHUB tool, th
 * After your tool in installed and you have tested it and feel like it’s ready to publish, click the link on your tool’s status page that you approve it (for publishing). You will (I think) then be asked to provide the license for your tool and check a box to verify the license is indeed correct. You will receive an automated email from nanoHUB saying the tool status changed from "Created to Uploaded". The nanoHUB sys admin will then need to compile your code and deploy it there. You will receive another email when the tool is ready to test on nanoHUB.
 
 
-## Example Steps (on Unix-like shell)
+## More verbosely (this needs to be revised)
 
 Here is an example walk-through using commands in a (Unix-like) shell
 ```
