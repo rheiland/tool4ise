@@ -22,6 +22,11 @@ So, an example might be (from a Unix-like shell):
 ```
 ~/git/ise_proj1$ python make_my_tool.py ise_proj1
 ```
+5. Try to display the new Jupyter notebook:
+```
+~/git/ise_proj1$ jupyter notebook ise_proj1.ipynb
+```
+6. Before you can actually run a simulation and visualize results from the notebook, you'll need to build your PhysiCell project (in /src) and copy the ```myproj``` executable to /bin. See details below.
 
 ## Details...
 
