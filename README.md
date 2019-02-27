@@ -8,9 +8,9 @@ This repository helps auto-generate a Jupyter notebook GUI for PhysiCell-related
 
 ## Steps to follow
 
-* Create a new, public repository on github.com (not the IU github) and clone it to your computer. Call it whatever you want (it doesn't have to match the name of your eventual nanoHUB tool). Don't bother to create a default README.md as it would be overwritten below. But if you do create a README.md for it, you may want to make a backup copy in case it gets overwritten in the steps below. For the example steps below, we choose the name "ise_proj1".
-* Clone this tool4ise repo to your computer.
-* Try to run the Python script called ```setup_new_proj.py``` from your tool4ise directory. If successful, this will do most of the following steps for you. You provide 3 arguments to the script:
+1. Create a new, public repository on github.com (not the IU github) and clone it to your computer. Call it whatever you want (it doesn't have to match the name of your eventual nanoHUB tool). Don't bother to create a default README.md as it would be overwritten below. But if you do create a README.md for it, you may want to make a backup copy in case it gets overwritten in the steps below. For the example steps below, we choose the name "ise_proj1".
+2. Clone this tool4ise repo to your computer.
+3. Try to run the Python script called ```setup_new_proj.py``` from your tool4ise directory. If successful, this will do most of the following steps for you. You provide 3 arguments to the script:
 ```
 <full-path-to-new-project>  <simple-project-name>  <full-path-to-PhysiCell-project>
 ```
@@ -18,8 +18,12 @@ So, an example might be (from a Unix-like shell):
 ```
 ~/git/tool4ise$ python setup_new_proj.py /Users/heiland/git/ise_proj1 ise_proj1 /Users/heiland/dev/PhysiCell_heterogeneity
 ```
+4. From your new project's root directory, run ```make_my_tool.py```, for example:
+```
+~/git/ise_proj1$ python make_my_tool.py ise_proj1
+```
 
-## Details of the ```setup_new_proj.py```
+## Details...
 
 In more detail, the ```setup_new_proj.py``` script should:
 
