@@ -1,5 +1,5 @@
 # 
-# setup_new_proj.py - create a new PhysiCell Jupyter notebook [for nanoHUB] project by copying the contents of this 
+# setup_new_proj.py - create a new PhysiCell Jupyter notebook project [for nanoHUB] by copying the contents of this 
 #                     project and an existing PhysiCell project into the new project.
 #
 # Assumptions:
@@ -8,6 +8,10 @@
 #       - config/PhysiCell_settings.xml 
 #       - output/initial.xml)
 # 
+# Usage:
+#   python setup_new_proj.py  <full-path-to-new-project>  <simple-project-name>  <full-path-to-PhysiCell-project>
+#  e.g.:
+#   python setup_new_proj.py  /Users/heiland/git/iu399_proj1  iu399_proj1  /Users/heiland/dev/PhysiCell_heterogeneity
 #
 
 import sys
@@ -23,28 +27,36 @@ if (num_args < 4):
 #    print("Usage: %s <your repo name>")
     sys.exit(1)
 proj_fullpath = sys.argv[1]
+print('proj_fullpath = ',proj_fullpath)
 proj_name = sys.argv[2]
-print('proj_name=',proj_name)
-physicell_fullpath = sys.argv[3]
+print('proj_name = ',proj_name)
+physicell_fullpath= sys.argv[3]
+print('physicell_fullpath = ',physicell_fullpath)
 
-
+print("\n STEP 1: copy tool4ise to new project:\n")
 try:
   for elm in os.listdir('.'):
     if (elm[0] != '.'):  # avoid /.git, etc
         if os.path.isdir(elm):
-            print('dir ',elm)
-            shutil.copytree(elm, os.path.join(proj_fullpath, elm))        # (from_dir, to_dir)
+            from_dir = elm
+            to_dir = os.path.join(proj_fullpath, elm)
+            print(from_dir, " --> ", to_dir)
+            # shutil.copytree(elm, os.path.join(proj_fullpath, elm))        # (from_dir, to_dir)
+            shutil.copytree(from_dir, to_dir)
         else:
-            print('file ',elm)
-            shutil.copy(elm, os.path.join(proj_fullpath, elm))        # (from_file, to_file)
+            from_file = elm
+            to_file = os.path.join(proj_fullpath, elm)        # (from_file, to_file)
+            print(from_file, " --> ", to_file)
+            shutil.copy(from_file, to_file)
 except:
     print("error copying stuff to ", proj_fullpath, " ... maybe you already did?")
 
 #------------------------------------
+print("\n\n STEP 2: copy PhysiCell project's source to new project's /src:\n")
 # Copy (most of) your PhysiCell project to your project's /src directory
 #os.chdir(os.path.join(proj_fullpath, 'src'))
 proj_src_dir = os.path.join(proj_fullpath, 'src')
-print("\nproj_src_dir = ",proj_src_dir)
+print("proj_src_dir = ",proj_src_dir)
 
 dir_names = ["core", "BioFVM", "modules", "custom_modules"]
 for dname in dir_names:
