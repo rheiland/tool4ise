@@ -26,6 +26,7 @@ if (num_args < 4):
     print("Usage: %s <full-path-to-new-project>  <simple-project-name>  <full-path-to-PhysiCell-project>")
 #    print("Usage: %s <your repo name>")
     sys.exit(1)
+#print('sys.argv[0] = ',sys.argv[0])
 proj_fullpath = sys.argv[1]
 print('proj_fullpath = ',proj_fullpath)
 proj_name = sys.argv[2]
@@ -44,6 +45,9 @@ try:
             # shutil.copytree(elm, os.path.join(proj_fullpath, elm))        # (from_dir, to_dir)
             shutil.copytree(from_dir, to_dir)
         else:
+            if (elm == sys.argv[0]):
+                # print('------- skipping over ',elm)
+                continue
             from_file = elm
             to_file = os.path.join(proj_fullpath, elm)        # (from_file, to_file)
             print(from_file, " --> ", to_file)
@@ -80,6 +84,11 @@ shutil.copy(from_file, to_file)
 
 from_file = os.path.join(physicell_fullpath, "VERSION.txt")
 to_file = os.path.join(proj_src_dir, "VERSION.txt")
+print(from_file, " --> ", to_file)
+shutil.copy(from_file, to_file)
+
+from_file = os.path.join(physicell_fullpath, "config", "PhysiCell_settings.xml")
+to_file = os.path.join(proj_fullpath, "data", "PhysiCell_settings.xml")
 print(from_file, " --> ", to_file)
 shutil.copy(from_file, to_file)
 
