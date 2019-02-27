@@ -1,24 +1,24 @@
-# tool4ise
+# tool4nanobio
 This repository helps auto-generate a Jupyter notebook GUI for PhysiCell-related models and output. The directory structure and content of the repository matches a template required for a [nanoHUB](https://nanohub.org/) tool installation. However, creating an actual nanoHUB tool is optional; the GUI created here should also work (with fewer bells & whistles, perhaps) on your personal computer, assuming you have the required Python modules and are able to run a Jupyter notebook server.
 
 
 ## Dependencies
-* We highly recommend installing the Anaconda Python 3.x distribution. This will contain Python and various 3rd party modules needed to run the PhysiCell Jupyter GUI. It will also contain the Jupyter notebook server.
+* We highly recommend installing the [Anaconda Python 3.x](https://www.anaconda.com/distribution) distribution. This will contain Python and various 3rd party modules needed to create the PhysiCell Jupyter notebook (PhysiCell GUI). It will also contain the Jupyter notebook server to test the GUI.
 * If you are not on Windows, it's possible to install a Python module (hublib) that will provide customized widgets for the GUI. (The make_my_tool.py script will attempt to install this)
 
 ## Steps to follow
 
-1. Create a new, public repository on github.com (not the IU github) and clone it to your computer. Call it whatever you want (it doesn't have to match the name of your eventual nanoHUB tool). Don't bother to create a default README.md as it would be overwritten below. But if you do create a README.md for it, you may want to make a backup copy in case it gets overwritten in the steps below. For the example steps below, we choose the name "ise_proj1".
-2. Clone this tool4ise repo to your computer.
-3. Try to run the Python script called ```setup_new_proj.py``` from your tool4ise directory. If successful, this will do most of the following steps for you. You provide 3 arguments to the script:
+1. Create a new, public repository on github.com (not the IU github) and clone it to your computer. This will be your "project repo". Call it whatever you want (it doesn't have to match the name of your eventual nanoHUB tool). If you create a README.md, make a backup copy in case it gets overwritten in the steps below. For the example steps below, we choose the name "ise_proj1".
+2. Clone this tool4nanobio repo to your computer.
+3. In a command line shell window (terminal or command prompt), from the tool4nanobio directory, run the Python script called ```setup_new_proj.py```. If successful, this will copy (nearly) all necessary files into your new project repo (step 1). You provide 3 arguments to the script:
 ```
 <full-path-to-new-project>  <simple-project-name>  <full-path-to-PhysiCell-project>
 ```
 So, an example might be (from a Unix-like shell):
 ```
-~/git/tool4ise$ python setup_new_proj.py /Users/heiland/git/ise_proj1 ise_proj1 /Users/heiland/dev/PhysiCell_heterogeneity
+~/git/tool4nanobio$ python setup_new_proj.py /Users/heiland/git/ise_proj1 ise_proj1 /Users/heiland/dev/PhysiCell_heterogeneity
 ```
-4. From your new project's root directory, run ```make_my_tool.py```, for example:
+4. From your root directory of your new project repo, run ```make_my_tool.py```, for example:
 ```
 ~/git/ise_proj1$ python make_my_tool.py ise_proj1
 ```
@@ -26,15 +26,15 @@ So, an example might be (from a Unix-like shell):
 ```
 ~/git/ise_proj1$ jupyter notebook ise_proj1.ipynb
 ```
-6. Commit your new repo.
+6. If it's successful, commit everything to the GitHub repo.
 7. Before you can actually run a simulation and visualize results from the (local) notebook, you'll need to build your PhysiCell project (in /src) and copy the ```myproj``` executable to /bin. See details below.
 8. Perform steps to create your nanoHUB tool.
 
-## Details...
+## Details of the above scripts (if you care)
 
 In more detail, the ```setup_new_proj.py``` script should:
 
-* Copy the contents of the tool4ise repo to your newly created repo (but NOT the hidden ```.git``` directory!)
+* Copy the contents of the tool4nanobio repo to your newly created repo (but NOT the hidden ```.git``` directory!)
 
 * Copy the relevant files from your PhysiCell model into the new repo's /src directory. Basically, you need to get all of your PhysiCell code (and directory structure) into /src so that when you type ```make``` there, it will build your project. For example, one would typically do: <!-- the following (there's a Python script in /src called ```copy_myproj.py``` that should perform these copies - see Example Steps below): -->
 
@@ -86,18 +86,20 @@ Copy the “initial.xml”, from the output you generated when you ran your proj
 
 From the root directory of your new project (your cloned repo), run:
 ```
-$ jupyter notebook <your-repo>.ipynb
+~/git/ise_proj1$ jupyter notebook <your-repo>.ipynb
 ```
 Select ‘Cell’ → ‘Run All’ menu item to display the notebook (or, if necessary, select the 'Kernel' → ‘Restart & Run All’ menu item).
 Click the ‘Run’ button in the GUI to see if it works. Output files should appear in the /tmpdir directory.
 
+<!--
 If everything appears to be correct and you want to test and possibly publish your tool on nanoHUB:
 
-* Delete tool4ise.zip in your repo. Optionally, clean up (delete) /src/*.o
+* Delete tool4nanobio.zip in your repo. Optionally, clean up (delete) /src/*.o
 * Commit files to your GitHub repo.
+-->
 
 
-## Follow-on Steps (for a nanoHUB tool)
+## Create a nanoHUB tool (optional)
 
 * If you do not have a nanoHUB account, register for one at https://nanohub.org/register/
 * On https://nanohub.org/tools/create, fill out the basic information for creating your nanoHUB tool. Tool Name should be 3-15 alphanumeric characters, including at least one non numeric character (e.g., ```iu399sp19p099```). Although not required, it’s probably wise to also use only lowercase characters. Provide the URL to your newly created GitHub repo (e.g., ```https://github.com/...```) and also select the bullet to ```Publish as a Jupyter notebook```. When you finally click the ```Register Tool``` button, you will be told if that tool name has already been taken, however, it may take a few seconds for that to appear. Also, don't worry if you forget to provide some info on this initial form, you can always edit it later.
@@ -124,13 +126,13 @@ Cloning into 'ise_proj1'...
 warning: You appear to have cloned an empty repository.
 ~/git$ cd ise_proj1/
 
-~/git/ise_proj1$ cp -R ~/git/tool4ise/* .
+~/git/ise_proj1$ cp -R ~/git/tool4nanobio/* .
 
 ~/git/ise_proj1$ ls
 LICENSE.txt		doc/			rappture/
 README.md		examples/		src/
 bin/			make_my_tool.py		tmpdir/
-data/			middleware/		tool4ise.ipynb
+data/			middleware/		tool4nanobio.ipynb
 
 ~/git/ise_proj1$ cd src
 ~/git/ise_proj1/src$ ls
@@ -180,9 +182,9 @@ Usage: %s <your repo name>
 ~/git/ise_proj1$ python make_my_tool.py ise_proj1
 num_args= 2
 toolname= ise_proj1
-Renaming  bin/tool4ise.py  to  bin/ise_proj1.py
+Renaming  bin/tool4nanobio.py  to  bin/ise_proj1.py
 Replacing toolname in  bin/ise_proj1.py
-Renaming  tool4ise.ipynb  to  ise_proj1.ipynb
+Renaming  tool4nanobio.ipynb  to  ise_proj1.ipynb
 Replacing toolname in  ise_proj1.ipynb
 Trying to run xml2jupyter.py on your .xml file in /data
 num_args= 2
